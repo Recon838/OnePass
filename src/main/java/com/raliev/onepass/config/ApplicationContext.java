@@ -2,6 +2,7 @@ package com.raliev.onepass.config;
 
 import com.raliev.onepass.entity.Secret;
 import com.raliev.onepass.service.CacheSecretService;
+import com.raliev.onepass.service.DBSecretService;
 import com.raliev.onepass.service.SecretService;
 import org.ehcache.Cache;
 import org.ehcache.CacheManager;
@@ -31,7 +32,7 @@ public class ApplicationContext {
 
 	@Bean
 	public SecretService service() {
-		return new CacheSecretService();
-//		return new DBSecretService();
+//		return new CacheSecretService();
+		return new DBSecretService();
 	}
 }
