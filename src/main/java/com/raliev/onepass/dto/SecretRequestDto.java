@@ -4,7 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalTime;
 
-public class SecretDto {
+public class SecretRequestDto {
 
 	private String data;
 

@@ -1,6 +1,7 @@
 package com.raliev.onepass.controller;
 
-import com.raliev.onepass.dto.SecretDto;
+import com.raliev.onepass.dto.SecretRequestDto;
+import com.raliev.onepass.dto.LinkResponseDto;
 import com.raliev.onepass.dto.SecretResponseDto;
 import com.raliev.onepass.entity.Secret;
 import com.raliev.onepass.service.SecretService;
@@ -24,16 +25,17 @@ public class SecretController {
 	private SecretService service;
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Secret> get(@PathVariable("id") Long id) {
+	public ResponseEntity<SecretResponseDto> get(@PathVariable("id") Long id) {
 		Optional<Secret> secret = service.get(id);
 		return secret
+				.map(SecretResponseDto::of)
 				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
 	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public SecretResponseDto add(@RequestBody SecretDto secretDto) {
+	public LinkResponseDto add(@RequestBody SecretRequestDto secretDto) {
 		Long id = service.add(Secret.of(secretDto));
-		return SecretResponseDto.of(id);
+		return LinkResponseDto.of(id);
 	}
 }

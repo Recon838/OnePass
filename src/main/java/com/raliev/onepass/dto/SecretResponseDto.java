@@ -1,30 +1,34 @@
 package com.raliev.onepass.dto;
 
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import com.raliev.onepass.entity.Secret;
 
-import java.net.URI;
+import java.time.LocalDateTime;
 
 public class SecretResponseDto {
 
-	private URI uri;
+	private String data;
+	private LocalDateTime expirationDate;
 
-	public URI getUri() {
-		return uri;
+	public String getData() {
+		return data;
 	}
 
-	public void setUri(URI uri) {
-		this.uri = uri;
+	public void setData(String data) {
+		this.data = data;
 	}
 
-	public static SecretResponseDto of(Long secretId) {
-		URI uri = ServletUriComponentsBuilder.fromCurrentServletMapping()
-				.path("secret/")
-				.path(String.valueOf(secretId))
-				.build()
-				.toUri();
+	public LocalDateTime getExpirationDate() {
+		return expirationDate;
+	}
 
+	public void setExpirationDate(LocalDateTime expirationDate) {
+		this.expirationDate = expirationDate;
+	}
+
+	public static SecretResponseDto of(Secret secret) {
 		SecretResponseDto dto = new SecretResponseDto();
-		dto.setUri(uri);
+		dto.setData(secret.getData());
+		dto.setExpirationDate(secret.getExpirationDate());
 		return dto;
 	}
 }

@@ -1,8 +1,7 @@
 package com.raliev.onepass.entity;
 
-import com.raliev.onepass.dto.SecretDto;
+import com.raliev.onepass.dto.SecretRequestDto;
 import com.raliev.onepass.utils.Expiration;
-import com.raliev.onepass.utils.LocalDateTimes;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -56,7 +55,7 @@ public class Secret implements Serializable {
 		this.expirationDate = expirationDate;
 	}
 
-	public static Secret of(SecretDto dto) {
+	public static Secret of(SecretRequestDto dto) {
 		Secret secret = new Secret();
 		secret.setData(dto.getData());
 		secret.setExpirationDate(Expiration.calcExpirationDateTime(dto.getLifetime()));
