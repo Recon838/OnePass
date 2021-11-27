@@ -20,8 +20,8 @@ public class ApplicationContext {
 
 	@Bean
 	public Cache cache() {
-		CacheConfiguration<Long, Secret> config = CacheConfigurationBuilder
-				.newCacheConfigurationBuilder(Long.class, Secret.class, ResourcePoolsBuilder.heap(10))
+		CacheConfiguration<String, Secret> config = CacheConfigurationBuilder
+				.newCacheConfigurationBuilder(String.class, Secret.class, ResourcePoolsBuilder.heap(10))
 				.withExpiry(new DefaultCacheExpiryPolicy())
 				.build();
 

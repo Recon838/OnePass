@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface SecretRepository extends CrudRepository<Secret, Long> {
+public interface SecretRepository extends CrudRepository<Secret, String> {
 
 	@Query(value = "SELECT * FROM secret s WHERE s.expiration_date <= ?1", nativeQuery = true)
 	List<Secret> getExpiredSecretsByDate(LocalDateTime date);

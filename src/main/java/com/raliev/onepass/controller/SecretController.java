@@ -25,8 +25,8 @@ public class SecretController {
 	private SecretService service;
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<SecretResponseDto> get(@PathVariable("id") Long id) {
-		Optional<Secret> secret = service.get(id);
+	public ResponseEntity<SecretResponseDto> get(@PathVariable("id") String uuid) {
+		Optional<Secret> secret = service.get(uuid);
 		return secret
 				.map(SecretResponseDto::of)
 				.map(ResponseEntity::ok)
@@ -35,7 +35,7 @@ public class SecretController {
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public LinkResponseDto add(@RequestBody SecretRequestDto secretDto) {
-		Long id = service.add(Secret.of(secretDto));
-		return LinkResponseDto.of(id);
+		String uuid = service.add(Secret.of(secretDto));
+		return LinkResponseDto.of(uuid);
 	}
 }

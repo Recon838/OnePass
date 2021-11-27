@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface SecretService {
 
-	Long add(Secret secret);
+	String add(Secret secret);
 
-	Optional<Secret> get(Long id);
+	Optional<Secret> get(String uuid);
 
 	void cleanExpiredTo(LocalDateTime date);
 }

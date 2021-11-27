@@ -16,10 +16,10 @@ public class LinkResponseDto {
 		this.uri = uri;
 	}
 
-	public static LinkResponseDto of(Long secretId) {
+	public static LinkResponseDto of(String uuid) {
 		URI uri = ServletUriComponentsBuilder.fromCurrentServletMapping()
 				.path("secret/")
-				.path(String.valueOf(secretId))
+				.path(String.valueOf(uuid))
 				.build()
 				.toUri();
 

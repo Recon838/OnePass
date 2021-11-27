@@ -9,22 +9,22 @@ import java.time.Duration;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-public class DefaultCacheExpiryPolicy implements ExpiryPolicy<Long, Secret> {
+public class DefaultCacheExpiryPolicy implements ExpiryPolicy<String, Secret> {
 
 	@Override
-	public Duration getExpiryForCreation(Long aLong, Secret secret) {
+	public Duration getExpiryForCreation(String aString, Secret secret) {
 		return Optional.ofNullable(secret.getExpirationDate())
 				.map(expirationDate -> Duration.between(LocalDateTimes.currentDateTime(), expirationDate))
 				.orElse(Expiration.DEFAULT_EXPIRY_DURATION);
 	}
 
 	@Override
-	public Duration getExpiryForAccess(Long aLong, Supplier<? extends Secret> supplier) {
+	public Duration getExpiryForAccess(String aString, Supplier<? extends Secret> supplier) {
 		return null;
 	}
 
 	@Override
-	public Duration getExpiryForUpdate(Long aLong, Supplier<? extends Secret> supplier, Secret secret) {
+	public Duration getExpiryForUpdate(String aString, Supplier<? extends Secret> supplier, Secret secret) {
 		return null;
 	}
 }

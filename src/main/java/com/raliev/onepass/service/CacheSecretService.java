@@ -7,27 +7,25 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.UUID;
 
 @Service
 public class CacheSecretService implements SecretService {
 
-	private static final AtomicLong idCounter = new AtomicLong(0);
-
 	@Autowired
-	private Cache<Long, Secret> cache;
+	private Cache<String, Secret> cache;
 
 	@Override
-	public Long add(Secret secret) {
-		Long id = idCounter.getAndIncrement();
-		secret.setId(id);
-		cache.put(id, secret);
-		return id;
+	public String add(Secret secret) {
+		String uuid = UUID.randomUUID().toString();
+		secret.setUuid(uuid);
+		cache.put(uuid, secret);
+		return uuid;
 	}
 
 	@Override
-	public Optional<Secret> get(Long id) {
-		return Optional.ofNullable(cache.get(id));
+	public Optional<Secret> get(String uuid) {
+		return Optional.ofNullable(cache.get(uuid));
 	}
 
 	@Override

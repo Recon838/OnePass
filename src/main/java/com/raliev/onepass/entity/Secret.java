@@ -5,8 +5,6 @@ import com.raliev.onepass.utils.Expiration;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -19,8 +17,7 @@ public class Secret implements Serializable {
 	private static final long serialVersionUID = -5852896062346049995L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private String uuid;
 
 	@Column(name = "data", nullable = false)
 	private String data;
@@ -31,12 +28,12 @@ public class Secret implements Serializable {
 	public Secret() {
 	}
 
-	public Long getId() {
-		return id;
+	public String getUuid() {
+		return uuid;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 	public String getData() {
@@ -64,7 +61,7 @@ public class Secret implements Serializable {
 
 	@Override
 	public String toString() {
-		return "[ id: " + id +
+		return "[ id: " + uuid +
 				", data: " + data +
 				", expirationDate: " + expirationDate + " ]\n";
 	}
