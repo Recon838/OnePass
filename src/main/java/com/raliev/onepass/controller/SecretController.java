@@ -5,6 +5,7 @@ import com.raliev.onepass.dto.LinkResponseDto;
 import com.raliev.onepass.dto.SecretResponseDto;
 import com.raliev.onepass.entity.Secret;
 import com.raliev.onepass.service.SecretService;
+import com.raliev.onepass.utils.Identifiers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +26,8 @@ public class SecretController {
 	private SecretService service;
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<SecretResponseDto> get(@PathVariable("id") String uuid) {
-		Optional<Secret> secret = service.get(uuid);
+	public ResponseEntity<SecretResponseDto> get(@PathVariable("id") String encryptedId) {
+		Optional<Secret> secret = service.get(Identifiers.decrypt(encryptedId));
 		return secret
 				.map(SecretResponseDto::of)
 				.map(ResponseEntity::ok)
@@ -36,6 +37,6 @@ public class SecretController {
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public LinkResponseDto add(@RequestBody SecretRequestDto secretDto) {
 		String uuid = service.add(Secret.of(secretDto));
-		return LinkResponseDto.of(uuid);
+		return LinkResponseDto.of(Identifiers.encrypt(uuid));
 	}
 }
