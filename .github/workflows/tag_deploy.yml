@@ -1,6 +1,9 @@
-name: Manual deploy
-'on':
-  workflow_dispatch: null
+name: Tag deploy
+on:
+  push:
+    tags:
+      - v*.*.*
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
