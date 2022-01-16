@@ -1,6 +1,8 @@
 name: Manual deploy
-'on':
-  workflow_dispatch: null
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
