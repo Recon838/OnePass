@@ -10,6 +10,8 @@ public class Identifiers {
 
 	private Identifiers() {}
 
+	// todo
+
 	public static String encrypt(String id) {
 		return new String(ENCODER.encode(id.getBytes()), StandardCharsets.UTF_8);
 	}
